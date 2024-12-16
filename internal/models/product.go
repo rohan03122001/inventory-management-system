@@ -10,7 +10,7 @@ type Product struct {
 	ID          uint           `gorm:"primaryKey" json:"id"`
 	Name        string         `gorm:"size:255;not null" json:"name" binding:"required"`
 	Description string         `gorm:"type:text" json:"description"`
-	Price       string         `gorm:"not null" json:"price" binding:"required,gt=0"`
+	Price       float64         `gorm:"not null" json:"price" binding:"required,gt=0"`
 	Quantity    int            `gorm:"not null" json:"quantity" binding:"required,gte=0"`
 	SKU         string         `gorm:"size:50;unique;not null" json:"sku" binding:"required"`
 	CreatedAt   time.Time      `json:"created_at"`
