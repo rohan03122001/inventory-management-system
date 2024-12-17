@@ -7,6 +7,7 @@ import (
 	"github.com/rohan03122001/inventory-management-system/internal/config"
 	"github.com/rohan03122001/inventory-management-system/internal/handlers"
 	"github.com/rohan03122001/inventory-management-system/internal/middleware"
+	"github.com/rohan03122001/inventory-management-system/internal/models"
 	"github.com/rohan03122001/inventory-management-system/internal/repository"
 	"github.com/rohan03122001/inventory-management-system/internal/services"
 	"github.com/rohan03122001/inventory-management-system/pkg/database"
@@ -23,6 +24,9 @@ func main() {
 	if err != nil {
         log.Fatal("Failed to initialize database:", err)
     }
+	if err := db.DB.AutoMigrate(&models.Product{}); err != nil {
+		log.Fatal("Cannot migrate database:", err)
+	}
 
 	//setup middlewares
 	//authMiddleware := middleware.NewAuthMiddleware(cfg.JWT_SECRET)
@@ -54,8 +58,7 @@ func main() {
 		})
 
 		//protected Routes
-
-		products := router.Group("/products")
+		products := api.Group("/products")
 		//products.Use(authMiddleware.Authenticate())
 		{
 			products.POST("",productHandler.CreateProduct)
@@ -67,7 +70,7 @@ func main() {
 		}
 	}
 
-	if err := router.Run(":8000"); err!=nil{
+	if err := router.Run(":8080"); err!=nil{
 		log.Fatal("Failed to start Server",err)
 	}
 }
