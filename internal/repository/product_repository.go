@@ -1,8 +1,8 @@
 package repository
 
 import (
-	"github.com/jinzhu/gorm"
 	"github.com/rohan03122001/inventory-management-system/internal/models"
+	"gorm.io/gorm"
 )
 
 type ProductRepository struct {

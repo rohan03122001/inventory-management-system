@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v5"
 )
 
 type authMiddleware struct {
@@ -34,8 +35,28 @@ func (m *authMiddleware) Authenticate() gin.HandlerFunc{
 			c.Abort()
 			return
 		}
-
-
 		//parse And Validate token
+	
+		token, err:= jwt.Parse(bearerToken[1], func(token *jwt.Token)(interface{}, error){
+			return []byte(m.jwtSecret),nil
+		})
+		
+		
+		if err!=nil || !token.Valid {
+			c.JSON(http.StatusUnauthorized, gin.H{
+				"error": "Invalid Token",
+			})
+			c.Abort()
+			return
+		}
+
+		//add claims to context ??
+
+		if claims, ok := token.Claims.(jwt.MapClaims); ok{
+			c.Set("user_id", claims["user_id"])
+        }
+
+        c.Next()
+
 	}
 }
