@@ -34,17 +34,14 @@ func main() {
 	productService := services.NewProductService(productRepo)
 	productHandler := handlers.NewProductHandler(productService)
 
-
 	// initialize Router
 
 	router := gin.Default()
-
 
 	//Apply Global Middlware
 
 	router.Use(errorMiddleware.ErrorHandler())
 	router.Use(logMiddleware.Logger())
-
 
 	//API ROUTES
 
@@ -55,9 +52,9 @@ func main() {
 				"status": "OK",
 			})
 		})
-		
+
 		//protected Routes
-		
+
 		products := router.Group("/products")
 		//products.Use(authMiddleware.Authenticate())
 		{

@@ -14,36 +14,34 @@ type Database struct {
 }
 
 
-func NewDatabase(config *config.Config) (*Database, error){
-	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
-        config.DB_HOST,
-        config.DB_USER,
-        config.DB_PASSWORD,
-        config.DB_NAME,
-        config.DB_PORT,
-    )
+func NewDatabase(config *config.Config) (*Database, error) {
+    dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
+    config.DB_HOST,
+    config.DB_USER,
+    config.DB_PASSWORD,
+    config.DB_NAME,
+    config.DB_PORT,
+)
 
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
-        Logger: logger.Default.LogMode(logger.Info), // Set logging level
+
+    db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
+        Logger: logger.Default.LogMode(logger.Info),
     })
+    if err != nil {
+        return nil, fmt.Errorf("failed to initialize database, got error %w", err)
+    }
 
-	if err!= nil{
-		fmt.Errorf("Error Connecting To database %w",err)
-	}
+    sqlDB, err := db.DB()
+    if err != nil {
+        return nil, fmt.Errorf("failed to get database instance: %w", err)
+    }
 
-	//Test The connection
+    if err := sqlDB.Ping(); err != nil {
+        return nil, fmt.Errorf("failed to ping database: %w", err)
+    }
 
-	sqlDB, err := db.DB()
-	if err != nil {
-		fmt.Errorf("Error Getting database instance %w",err)
-	}
+    sqlDB.SetMaxIdleConns(10)
+    sqlDB.SetMaxOpenConns(100)
 
-	if err := sqlDB.Ping(); err !=nil{
-		fmt.Errorf("Failed to ping database instance %w",err)
-	}
-
-	sqlDB.SetMaxIdleConns(10)
-	sqlDB.SetMaxOpenConns(100)
-
-	return &Database{DB: db}, nil
+    return &Database{DB: db}, nil
 }
