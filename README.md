@@ -7,7 +7,6 @@ A robust RESTful API service for managing product inventory, built with Go. Feat
 - Gin Web Framework
 - GORM
 - PostgreSQL
-- Docker & Docker Compose
 
 ## Features
 - RESTful API endpoints
@@ -15,25 +14,28 @@ A robust RESTful API service for managing product inventory, built with Go. Feat
 - Stock management
 - Pagination
 - Middleware for logging and error handling
-- Containerized deployment
 - Structured logging
 
 ## Getting Started
 
 ### Prerequisites
 - Go 1.22+
-- PostgreSQL
-- Docker & Docker Compose (optional)
+- Docker (for PostgreSQL)
 
 ### Local Setup
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/inventory-management-system
+git clone https://github.com/rohan03122001/inventory-management-system
 cd inventory-management-system
 ```
 
-2. Create `.env` file:
+2. Start PostgreSQL using Docker:
+```bash
+docker run --name inv-postgres -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=inventory -p 5434:5432 -d postgres:14
+```
+
+3. Create `.env` file:
 ```env
 DB_HOST=localhost
 DB_PORT=5434
@@ -42,12 +44,7 @@ DB_PASSWORD=postgres
 DB_NAME=inventory
 ```
 
-3. Run with Docker:
-```bash
-docker-compose up
-```
-
-Or run locally:
+4. Run the application:
 ```bash
 go mod download
 go run cmd/api/main.go
