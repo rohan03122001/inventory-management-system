@@ -1,0 +1,159 @@
+{
+    "info": {
+        "_postman_id": "2612d523-0538-46ec-99b1-ba324ce1426b",
+        "name": "Inventory-Management",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "http://localhost:8080/api/v1/products/1",
+            "request": {
+                "method": "DELETE",
+                "url": {
+                    "raw": "http://localhost:8080/api/v1/products/3",
+                    "path": [
+                        "api",
+                        "v1",
+                        "products",
+                        "3"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080"
+                },
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n    \"quantity\": -5\n}"
+                }
+            }
+        },
+        {
+            "name": "http://localhost:8080/api/v1/products/1",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:8080/api/v1/products/3",
+                    "path": [
+                        "api",
+                        "v1",
+                        "products",
+                        "3"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080"
+                }
+            }
+        },
+        {
+            "name": "http://localhost:8080/api/v1/products",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:8080/api/v1/products/2",
+                    "path": [
+                        "api",
+                        "v1",
+                        "products",
+                        "2"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080"
+                }
+            }
+        },
+        {
+            "name": "http://localhost:8000/api/v1/products/",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:8080/api/v1/products?page=1&page_size=10",
+                    "query": [
+                        {
+                            "key": "page",
+                            "value": "1"
+                        },
+                        {
+                            "key": "page_size",
+                            "value": "10"
+                        }
+                    ],
+                    "variable": [],
+                    "path": [
+                        "api",
+                        "v1",
+                        "products"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080"
+                },
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "*/*",
+                        "disabled": true
+                    },
+                    {
+                        "key": "User-Agent",
+                        "value": "Thunder Client (https://www.thunderclient.com)",
+                        "disabled": true
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n    \"name\": \"Playstation\",\n    \"description\": \"Console\",\n    \"price\": 588.99,\n    \"quantity\": 90,\n    \"sku\": \"IPH13-005\"\n}"
+                }
+            }
+        },
+        {
+            "name": "http://localhost:8000/api/v1/health",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:8000/api/v1/health",
+                    "path": [
+                        "api",
+                        "v1",
+                        "health"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8000"
+                }
+            }
+        }
+    ]
+}
