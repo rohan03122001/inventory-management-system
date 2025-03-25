@@ -1,5 +1,7 @@
 # Go Inventory Management System 🚀
 
+Blog : https://rohan-bhujbal.hashnode.dev/building-a-rest-api-with-go-from-zero-to-hero
+
 A robust RESTful API service for managing product inventory, built with Go. Features CRUD operations, stock management, and pagination support.
 
 ## Tech Stack
